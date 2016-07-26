@@ -6,6 +6,8 @@ class NuclearPowerReactors
   attr_accessor :current_page
   attr_reader :home_page, :path_to_country_data
 
+  
+
   def initialize(country_iso_alpha_2_code = "US") #default country set to US
     @home_page = "https://www.iaea.org"
     @path_to_country_data = "/PRIS/CountryStatistics/CountryDetails.aspx?current="
@@ -23,7 +25,7 @@ class NuclearPowerReactors
     countries
   end
 
-  def scrape_avalable_reactors
+  def scrape_available_reactors
   end
 
 end
