@@ -3,29 +3,36 @@ require 'nokogiri'
 require 'open-uri'
 
 class NuclearPowerReactors
-  attr_accessor :current_page
-  attr_reader :home_page, :path_to_country_data
+  attr_accessor :country_page, :country_iso_alpha_2_code, :reactor_page, :reactor_code
+  attr_reader :home_page, :pris_home, :path_to_country_data, :path_to_reactor_data
 
-  
-
-  def initialize(country_iso_alpha_2_code = "US") #default country set to US
+  # @@countries_with_reactors = []
+  def initialize #default country set to US, default reactor to ANO-1 -- maybe remove the defaults?
     @home_page = "https://www.iaea.org"
+    @pris_home = "#{@home_page}/PRIS/home.aspx"  #page to draw available countries and reactors from together with their codes
     @path_to_country_data = "/PRIS/CountryStatistics/CountryDetails.aspx?current="
-    @current_page = "#{@home_page}#{@path_to_country_data}#{country_iso_alpha_2_code}"
+    @path_to_reactor_data = "/PRIS/CountryStatistics/ReactorDetails.aspx?current="
+    @country_page = "#{@home_page}#{@path_to_country_data}US"
+    @reactor_page = "#{@home_page}#{@path_to_reactor_data}652"
   end
 
   def scrape_available_countries
-    raw_text = Nokogiri::HTML(open(@current_page))
-    countries = []
-    relative_addresses = []
-    raw_text.css(".sidebar").css("li").css("a").each {|country| countries << country.text}
-    raw_text.css(".sidebar").css("li").css("a").each {|address| relative_addresses << address.values[1]}
-    binding.pry
-    # countries.delete_if {|country| country == ""}
-    countries
+    #scrapes the PRIS home page and returns a hash of country data that has the name & iso code for all available countries
+    raw_text = Nokogiri::HTML(open(@pris_home))
+    selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlCountry").css("option")
+    selection_list.each_with_object({}) do |country, scraped_country_data|
+      scraped_country_data[country.text] = country.values[0] unless country.text == ""
+      #Builds a hash like this: scraped_country_data = {country1_name => iso1, country2_name => iso2, ...}
+    end
   end
 
-  def scrape_available_reactors
+  def scrape_available_reactors #this should return an array of reactor data hashes that have the name and id of the reactor
+    raw_text = Nokogiri::HTML(open(@pris_home))
+    # reactors = []
+    # reactor_ids = []
+    raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")[1].values[0]  #1st reactor id
+    raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")[1].text #1st reactor name
+
   end
 
 end
