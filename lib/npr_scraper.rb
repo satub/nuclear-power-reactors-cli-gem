@@ -57,6 +57,12 @@ class NPRScraper
     country
   end
 
+  def scrape_reactor_data(reactor_id)
+    #scrapes the PRIS reactor_page and returns a hash of reactor data
+    @reactor_page = "#{@home_page}#{@path_to_reactor_data}#{reactor_id}"
+    raw_text = Nokogiri::HTML(open(@reactor_page))
+    
+  end
 
 end
 npr = NPRScraper.new.scrape_country_data("FI")
