@@ -61,8 +61,16 @@ class NPRScraper
     #scrapes the PRIS reactor_page and returns a hash of reactor data
     @reactor_page = "#{@home_page}#{@path_to_reactor_data}#{reactor_id}"
     raw_text = Nokogiri::HTML(open(@reactor_page))
+    reactor_data = raw_text.css(".box-content").css("span")
     
+    reactor = {}
+    reactor[:status] = raw_text.css("#MainContent_MainContent_lblReactorStatus").text
+    #add rest of the data with keys
+    reactor_data.each do |data|
+      reactor[data.values[0].match(/MainContent_MainContent_lbl(\w*)/).captures[0].to_sym] = data.text
+    end
+    # binding.pry
   end
 
 end
-npr = NPRScraper.new.scrape_country_data("FI")
+npr = NPRScraper.new.scrape_reactor_data("157")
