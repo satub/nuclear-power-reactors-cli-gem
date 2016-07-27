@@ -20,21 +20,22 @@ class NuclearPowerReactors
     #scrapes the PRIS home page and returns a hash of country data that has the name & iso code for all available countries
     raw_text = Nokogiri::HTML(open(@pris_home))
     selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlCountry").css("option")
-    selection_list.each_with_object({}) do |country, scraped_country_data|
-      scraped_country_data[country.text] = country.values[0] unless country.text == ""
-      #Builds a hash like this: scraped_country_data = {country1_name => iso1, country2_name => iso2, ...}
+    selection_list.each_with_object({}) do |country, scraped_country_ids|
+      scraped_country_ids[country.text] = country.values[0] unless country.text == ""
+      #Builds a hash: scraped_country_ids = {country1_name => iso1, country2_name => iso2, ...}
     end
   end
 
-  def scrape_available_reactors #this should return an array of reactor data hashes that have the name and id of the reactor
+  def scrape_available_reactors
+    #scrapes the PRIS home page and returns a has of reactor data that has the name and id for all available reactors
     raw_text = Nokogiri::HTML(open(@pris_home))
-    # reactors = []
-    # reactor_ids = []
-    raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")[1].values[0]  #1st reactor id
-    raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")[1].text #1st reactor name
-
+    selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")
+    selection_list.each_with_object({}) do |reactor, scraped_reactor_ids|
+      scraped_reactor_ids[reactor.text] = reactor.values[0] unless reactor.text == ""
+      #Builds a hash:  scraped_reactor_ids = {reactor1_name => id1, reactor2_name => id2, ...}
+    end
   end
 
 end
-puts npr_list = NuclearPowerReactors.new.scrape_available_countries
+puts npr_list = NuclearPowerReactors.new.scrape_available_reactors
 #the above line is for preliminary tests only until the bin/nuclear-power-reactors file or testing specs are built
