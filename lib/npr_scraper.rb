@@ -2,8 +2,8 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 
-class NuclearPowerReactors
-  attr_accessor :country_page, :country_iso_alpha_2_code, :reactor_page, :reactor_code
+class NPRScraper
+  attr_accessor :country_page, :reactor_page
   attr_reader :home_page, :pris_home, :path_to_country_data, :path_to_reactor_data
 
   #Possibly move all scraping functions to a separate class and leave only call display, list and object creation here?
@@ -42,5 +42,5 @@ class NuclearPowerReactors
   end
 
 end
-puts npr_list = NuclearPowerReactors.new.scrape_available_reactors
+puts npr_list = NPRScraper.new.scrape_available_reactors
 #the above line is for preliminary tests only until the bin/nuclear-power-reactors file or testing specs are built
