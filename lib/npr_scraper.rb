@@ -28,7 +28,7 @@ class NPRScraper
   end
 
   def scrape_available_reactors
-    #scrapes the PRIS home page and returns a has of reactor data that has the name and id for all available reactors
+    #scrapes the PRIS home page and returns a hash of reactor data that has the name and id for all available reactors
     raw_text = Nokogiri::HTML(open(@pris_home))
     selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")
     selection_list.each_with_object({}) do |reactor, scraped_reactor_ids|
@@ -37,10 +37,26 @@ class NPRScraper
     end
   end
 
-  def scrape_country_data(@country_page)
+  def scrape_country_data(country_iso)
+    #scrapes the PRIS country_page and returns a hash of country data that lists the energy production and the names of reactors in that country
+    @country_page = "#{@home_page}#{@path_to_country_data}#{country_iso}"
+    raw_text = Nokogiri::HTML(open(@country_page))
+    energy_data = raw_text.css(".box-content").css("tr").last.css("h2")
+    reactor_table = raw_text.css(".tablesorter").css("td").css("a")
 
+    country = {}
+    country[:iso] = country_iso
+    country[:tep] = energy_data[0].text.strip!
+    country[:nep] = energy_data[1].text.strip!
+    #calculate the share of energy produced with nuclear power vs total energy produced
+    nep = country[:nep].gsub(/\sGW\.h/, "").to_f
+    tep = country[:tep].gsub(/\sGW\.h/, "").to_f
+    country[:nuclear_energy_share] = "#{((nep/tep)*100).round(2)}%"
+    #find reactors
+    country[:reactors] = reactor_table.collect {|reactor| reactor.text}
+    country
   end
 
+
 end
-puts npr_list = NPRScraper.new.scrape_available_reactors
-#the above line is for preliminary tests only until the bin/nuclear-power-reactors file or testing specs are built
+npr = NPRScraper.new.scrape_country_data("FI")
