@@ -99,7 +99,7 @@ class NuclearPowerReactors
        else
          color = :black
        end
-       puts "#{i+1}. #{reactor.name}  #{reactor.status}".colorize(color)
+       puts "#{i+1}. #{reactor.name}  (#{reactor.id})  #{reactor.status}".colorize(color)
      end
   end
 

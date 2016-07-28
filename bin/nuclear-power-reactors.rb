@@ -12,9 +12,27 @@ def greet
   puts "Data is currently available for the following countries:"
 end
 
+def choose_country
+  puts "Choose a country you want more information on by entering the corresponding two-letter ISO-code."
+  puts "For example, enter FI for Finland. Enter exit to quit the program."
+  input = gets.chomp
+end
 
+def valid_iso_format?(input)
+  !input.match(/\b\w{2}\b/).nil? && input.match(/\d+/).nil?
+end
 
 #run sequence here
+cmd = "go on"
 greet
 npr = NuclearPowerReactors.new
 npr.list_all_countries
+until cmd == "exit" do
+  if valid_iso_format?(choose_country)
+    puts "Yay! You succesfully chose a country!"
+  else
+    puts "Pay attention, chap!"
+  end
+  cmd = "exit"  #to avoid inifinite loop during testing
+end
+puts "Thank you for using Nuclear Power Reactors CLI! Have an energetic day! :D"
