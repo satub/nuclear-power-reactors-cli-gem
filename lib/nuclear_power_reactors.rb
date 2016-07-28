@@ -72,15 +72,32 @@ class NuclearPowerReactors
   end
 
 
+
+  ######TBA !!!write a helper method for choosing color
   def list_country_data(country_iso)
      country = Country.all.detect { |country|  country.iso == country_iso }
-     header = "Country: #{country.name}"
+     header = "Country: #{country.name}".colorize(:blue)
      summary_line_2 = "Total Electricity Production: #{country.total_electricity}...Nuclear Electricity Production: #{country.nuclear_electricity}...Nuclear Electricity Share: #{country.nuclear_e_share}"
-     summary_line_1 = "Reactors: Operational: #{country.operational}...Under Construction: #{country.under_construction}...In Long-term Shutdown: #{country.long_term}...In Permanent Shutdown: #{country.permanent_shutdown}"
+     summary_line_1 = "Reactors: Operational: #{country.operational}".colorize(:green) + "...Under Construction: #{country.under_construction}".colorize(:cyan) + "...In Long-term Shutdown: #{country.long_term}".colorize(:yellow) + "...In Permanent Shutdown: #{country.permanent_shutdown}".colorize(:red)
      puts header
      puts summary_line_1
      puts summary_line_2
-     country.reactors.each_with_index {|reactor, i| puts "#{i+1}. #{reactor.name}  #{reactor.status}"}
+     country.reactors.each_with_index do |reactor, i|
+       color = :black
+       case reactor.status
+        when "Operational"
+         color = :green
+       when "Under Construction"
+         color = :cyan
+       when "Permanent Shutdown"
+         color = :red
+       when "Long-term Shutdown"
+         color = :yellow
+       else
+         color = :black
+       end
+       puts "#{i+1}. #{reactor.name}  #{reactor.status}".colorize(color)
+     end
   end
 
 
@@ -88,7 +105,7 @@ class NuclearPowerReactors
   def show_reactor_details(reactor_id, property = "all")
     reactor = Reactor.all.detect {|reactor| reactor.id == reactor_id}
     #use colorize here?
-    header = "Name: #{reactor.name}...Location: #{reactor.location}...Status: #{reactor.status}"
+    header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}...Status: #{reactor.status}"
     puts header
     if property == "all"
       column_width = reactor.instance_variables.max_by {|name| name.length}.length
