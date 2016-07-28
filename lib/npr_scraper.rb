@@ -6,15 +6,13 @@ class NPRScraper
   attr_accessor :country_page, :reactor_page
   attr_reader :home_page, :pris_home, :path_to_country_data, :path_to_reactor_data
 
-  #Possibly move all scraping functions to a separate class and leave only call display, list and object creation here?
-
   def initialize #default country set to FI, default reactor to LOVIISA-1 -- maybe remove the defaults?
     @home_page = "https://www.iaea.org"
     @pris_home = "#{@home_page}/PRIS/home.aspx"  #page to draw available countries and reactors from together with their codes
     @path_to_country_data = "/PRIS/CountryStatistics/CountryDetails.aspx?current="
     @path_to_reactor_data = "/PRIS/CountryStatistics/ReactorDetails.aspx?current="
-    @country_page = "#{@home_page}#{@path_to_country_data}FI"
-    @reactor_page = "#{@home_page}#{@path_to_reactor_data}157"
+    # @country_page = "#{@home_page}#{@path_to_country_data}FI"
+    # @reactor_page = "#{@home_page}#{@path_to_reactor_data}157"
   end
 
   def scrape_available_countries
@@ -75,4 +73,5 @@ class NPRScraper
   end
 
 end
-npr = NPRScraper.new.scrape_reactor_data("157")
+# test this
+# npr = NPRScraper.new.scrape_reactor_data("157")
