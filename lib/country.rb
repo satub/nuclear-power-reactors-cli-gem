@@ -1,7 +1,7 @@
 class Country
   attr_accessor :name, :iso, :under_construction, :operational,
   :permanent_shutdown, :long_term, :total_electricity, :nuclear_electricity,
-  :nuclear_energy_share, :reactors
+  :nuclear_e_share, :reactors
 
   @@all = []
 

@@ -58,7 +58,7 @@ class NPRScraper
     #calculate the share of energy produced with nuclear power vs total energy produced
     nep = country[:nuclear_electricity].gsub(/\sGW\.h/, "").to_f
     tep = country[:total_electricity].gsub(/\sGW\.h/, "").to_f
-    country[:nuclear_energy_share] = "#{((nep/tep)*100).round(2)}%"
+    country[:nuclear_e_share] = "#{((nep/tep)*100).round(2)}%"
 
     #find reactors
     country[:reactors] = reactor_table.collect {|reactor| reactor.text}

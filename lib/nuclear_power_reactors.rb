@@ -74,8 +74,11 @@ class NuclearPowerReactors
   def list_country_data(country_iso)
      country = Country.all.detect { |country|  country.iso == country_iso }
      header = "Country: #{country.name}"
-     summary_line_1 = "Total Energy Production: #{country.tep}...Nuclear Energy Production: #{country.nep}...Nuclear Energy Share: #{country.nuclear_energy_share}"
-     summary_line_2 = ""
+     summary_line_2 = "Total Electricity Production: #{country.total_electricity}...Nuclear Electricity Production: #{country.nuclear_electricity}...Nuclear Electricity Share: #{country.nuclear_e_share}"
+     summary_line_1 = "Reactors: Operational: #{country.operational}...Under Construction: #{country.under_construction}...In Long-term Shutdown: #{country.long_term}...In Permanent Shutdown: #{country.permanent_shutdown}"
+     puts header
+     puts summary_line_1
+     puts summary_line_2
      country.reactors.each_with_index {|reactor, i| puts "#{i+1}. #{reactor.name}  #{reactor.status}"}
   end
 
