@@ -1,5 +1,5 @@
 class Reactor
-  attr_accessor :name, :location, :status, :Type, :Model, :NetCapacity,
+  attr_accessor :name, :id, :location, :status, :Type, :Model, :NetCapacity,
   :DesignNetCapacity, :GrossCapacity, :ThermalCapacity, :ConstructionStartDate,
   :FirstCriticality, :ConstrSuspendedDate, :ConstrRestartDate, :GridConnectionDate,
   :CommercialOperationDate, :LongTermShutdownDate, :RestartDate, :PermanentShutdownDate,

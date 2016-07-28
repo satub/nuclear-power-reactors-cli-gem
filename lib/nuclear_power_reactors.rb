@@ -66,14 +66,32 @@ class NuclearPowerReactors
   def create_reactor(reactor_id)
     reactor_data = @npr.scrape_reactor_data(reactor_id)
     reactor_data[:name] = @reactor_hash[reactor_id]
+    reactor_data[:id] = reactor_id
     reactor = Reactor.new(reactor_data)
   end
 
 
   def list_reactors_in(country_iso)
+     Country.all.detect { |country|  country.iso == country_iso }.reactors.each_with_index {|reactor, i| puts "#{i+1}. #{reactor.name}  #{reactor.status}"}
   end
 
-  def show_reactor_details(reactor_id)
+  #attribute 'property' reserved for later implementations to query only after 1 specific property
+  def show_reactor_details(reactor_id, property = "all")
+    reactor = Reactor.all.detect {|reactor| reactor.id == reactor_id}
+    #use colorize here?
+    header = "Name: #{reactor.name}...Location: #{reactor.location}...Status: #{reactor.status}"
+    puts header
+    if property == "all"
+      column_width = reactor.instance_variables.max_by {|name| name.length}.length
+
+      data = reactor.instance_variables.each do |variable|
+         field = "#{(variable.to_s).gsub(/@/,"")}"
+         (column_width - field.length).times do
+           field << "."
+         end
+         puts "#{field} #{reactor.instance_variable_get(variable)}" if !field.match(/^[A-Z]/).nil?
+      end
+    end
   end
 
 
@@ -81,5 +99,8 @@ end
 
 reactors = NuclearPowerReactors.new
 #reactors.list_all_countries
-country_info = reactors.create_country("FI")
-binding.pry
+country = reactors.create_country("FI")
+# binding.pry
+# reactors.list_reactors_in("FI")
+reactors.show_reactor_details("157")
+# binding.pry
