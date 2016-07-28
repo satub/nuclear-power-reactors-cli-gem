@@ -1,6 +1,16 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/nuclear_power_reactors.rb"
+require_relative "../lib/npr_scraper.rb"
+require_relative "../lib/country.rb"
+require_relative "../lib/reactor.rb"
+
+def greet
+  puts "Welcome to Nuclear Power Reactors Command Line!"
+end
+
+def list_options
+end
 
 
 #Mockup functionality:
@@ -8,7 +18,7 @@ require_relative "../lib/nuclear_power_reactors.rb"
 #Give command options list:  -list countries, -list reactors, -exit program
 
 #display list of requested data
-    (option.... write data into a text file?)
+    #(option.... write data into a text file?)
 
 #Give the user an option to choose by line number: more info on line item, or an option to go back
 
