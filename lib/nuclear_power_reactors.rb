@@ -20,9 +20,9 @@ class NuclearPowerReactors
   end
 
   def list_all_countries
-    column_width = @country_hash.keys.max_by {|name| name.length}.length + 4
+    column_width = @country_hash.values.max_by {|name| name.length}.length + 4
     columns = 3
-    @country_hash.keys.each_with_index do |name, i|
+    @country_hash.values.each_with_index do |name, i|
         indexed_name = "#{i+1}. #{format_name(name)}"
       if (i+1) % columns == 0
         puts "#{indexed_name}"
@@ -36,20 +36,30 @@ class NuclearPowerReactors
     puts
   end
 
-
   #Showing all reactors (there are over 660 of them currently) will require heavy formatting. method TBA
   def list_all_reactors
   end
 
-  def list_reactors_in(country)
+  def create_country(country_iso)  #input is country iso code
+    country_data = @npr.scrape_country_data(country_iso)
+    country_data[:name] = @country_hash[(country_iso)]
+    #country_data[:reactors] now has the reactors as an array of names only, not objects. create reactor objects with theses before creating countries!
+    country = Country.new(country_data)
   end
 
-  def show_reactor_details
+
+  def list_reactors_in(country_iso)
+  end
+
+  def show_reactor_details(reactor_id)
+
   end
 
 
 end
 
 reactors = NuclearPowerReactors.new
-reactors.list_all_countries
+# reactors.list_all_countries
+country = reactors.create_country("US")
+binding.pry
 # puts reactors.reactor_hash

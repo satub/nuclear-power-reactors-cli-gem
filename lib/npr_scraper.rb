@@ -20,7 +20,7 @@ class NPRScraper
     raw_text = Nokogiri::HTML(open(@pris_home))
     selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlCountry").css("option")
     selection_list.each_with_object({}) do |country, scraped_country_ids|
-      scraped_country_ids[country.text] = country.values[0] unless country.text == ""
+      scraped_country_ids[country.values[0]] = country.text unless country.text == ""
       #Builds a hash: scraped_country_ids = {country1_name => iso1, country2_name => iso2, ...}
     end
   end
@@ -30,7 +30,7 @@ class NPRScraper
     raw_text = Nokogiri::HTML(open(@pris_home))
     selection_list = raw_text.css(".box-content.shortCutBox").css("#MainContent_ddlReactors").css("option")
     selection_list.each_with_object({}) do |reactor, scraped_reactor_ids|
-      scraped_reactor_ids[reactor.text] = reactor.values[0] unless reactor.text == ""
+      scraped_reactor_ids[reactor.values[0]] = reactor.text unless reactor.text == ""
       #Builds a hash:  scraped_reactor_ids = {reactor1_name => id1, reactor2_name => id2, ...}
     end
   end
@@ -74,4 +74,6 @@ class NPRScraper
 
 end
 # test this
-# npr = NPRScraper.new.scrape_reactor_data("157")
+ # npr = NPRScraper.new
+ # country = npr.scrape_country_data("US")
+ # puts country
