@@ -42,9 +42,15 @@ class NuclearPowerReactors
 
   def create_country(country_iso)  #input is country iso code
     country_data = @npr.scrape_country_data(country_iso)
-    country_data[:name] = @country_hash[(country_iso)]
+    country_data[:name] = @country_hash[country_iso]
     #country_data[:reactors] now has the reactors as an array of names only, not objects. create reactor objects with theses before creating countries!
     country = Country.new(country_data)
+  end
+
+  def create_reactor(reactor_id)
+    reactor_data = @npr.scrape_reactor_data(reactor_id)
+    reactor_data[:name] = @reactor_hash[reactor_id]
+    reactor = Reactor.new(reactor_data)
   end
 
 
@@ -59,7 +65,6 @@ class NuclearPowerReactors
 end
 
 reactors = NuclearPowerReactors.new
-# reactors.list_all_countries
-country = reactors.create_country("US")
+#reactors.list_all_countries
+reactor = reactors.create_reactor("157")
 binding.pry
-# puts reactors.reactor_hash

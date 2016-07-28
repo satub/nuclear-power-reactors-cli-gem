@@ -69,11 +69,11 @@ class NPRScraper
     reactor_data.each do |data|
       reactor[data.values[0].match(/MainContent_MainContent_lbl(\w*)/).captures[0].to_sym] = data.text
     end
-    # binding.pry
+     reactor
   end
 
 end
 # test this
- # npr = NPRScraper.new
- # country = npr.scrape_country_data("US")
- # puts country
+ #  npr = NPRScraper.new
+ #  reactor = npr.scrape_reactor_data("157")
+ # puts reactor
