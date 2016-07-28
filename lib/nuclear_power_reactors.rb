@@ -1,6 +1,7 @@
 require_relative "../lib/npr_scraper.rb"
 require_relative "../lib/country.rb"
 require_relative "../lib/reactor.rb"
+require 'colorize'
 require 'pry'
 
 class NuclearPowerReactors
