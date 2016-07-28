@@ -15,24 +15,29 @@ class NuclearPowerReactors
     @reactor_hash = @npr.scrape_available_reactors
   end
 
+
   #some country names are given with a comma, eg 'Korea, Republic of'. This helper method formats them
   def format_name(name)
     name.match(/\,/).nil? ? name : "#{name.split(", ").reverse.join(" ")}"
   end
+  ######TBA !!!write a helper method for choosing color
+
 
   def list_all_countries
     column_width = @country_hash.values.max_by {|name| name.length}.length + 4
     columns = 3
-    @country_hash.values.each_with_index do |name, i|
-        indexed_name = "#{i+1}. #{format_name(name)}"
-      if (i+1) % columns == 0
-        puts "#{indexed_name}"
+    organizer = 1
+    @country_hash.each do |key, value|
+        name = "(#{key}) #{format_name(value)}"
+      if organizer % columns == 0
+        puts "#{name}"
       else
-        (column_width - indexed_name.length).times do
-          indexed_name << " "
+        (column_width - name.length).times do
+          name << " "
         end
-        print "#{indexed_name}"
+        print "#{name}"
       end
+      organizer += 1
     end
     puts
   end
@@ -72,8 +77,6 @@ class NuclearPowerReactors
   end
 
 
-
-  ######TBA !!!write a helper method for choosing color
   def list_country_data(country_iso)
      country = Country.all.detect { |country|  country.iso == country_iso }
      header = "Country: #{country.name}".colorize(:blue)
@@ -123,10 +126,11 @@ class NuclearPowerReactors
 
 end
 
-reactors = NuclearPowerReactors.new
+#Test this!
+# reactors = NuclearPowerReactors.new
 #reactors.list_all_countries
-country = reactors.create_country("FI")
+# country = reactors.create_country("FI")
 # binding.pry
-reactors.list_country_data("FI")
-reactors.show_reactor_details("157")
+# reactors.list_country_data("FI")
+# reactors.show_reactor_details("157")
 # binding.pry
