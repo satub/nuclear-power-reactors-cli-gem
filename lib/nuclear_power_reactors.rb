@@ -71,9 +71,14 @@ class NuclearPowerReactors
   end
 
 
-  def list_reactors_in(country_iso)
-     Country.all.detect { |country|  country.iso == country_iso }.reactors.each_with_index {|reactor, i| puts "#{i+1}. #{reactor.name}  #{reactor.status}"}
+  def list_country_data(country_iso)
+     country = Country.all.detect { |country|  country.iso == country_iso }
+     header = "Country: #{country.name}"
+     summary_line_1 = "Total Energy Production: #{country.tep}...Nuclear Energy Production: #{country.nep}...Nuclear Energy Share: #{country.nuclear_energy_share}"
+     summary_line_2 = ""
+     country.reactors.each_with_index {|reactor, i| puts "#{i+1}. #{reactor.name}  #{reactor.status}"}
   end
+
 
   #attribute 'property' reserved for later implementations to query only after 1 specific property
   def show_reactor_details(reactor_id, property = "all")
@@ -101,6 +106,6 @@ reactors = NuclearPowerReactors.new
 #reactors.list_all_countries
 country = reactors.create_country("FI")
 # binding.pry
-# reactors.list_reactors_in("FI")
+reactors.list_country_data("FI")
 reactors.show_reactor_details("157")
 # binding.pry

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/nuclear_power_reactors.rb"
-require_relative "../lib/npr_scraper.rb"
-require_relative "../lib/country.rb"
-require_relative "../lib/reactor.rb"
+# require_relative "../lib/npr_scraper.rb"
+# require_relative "../lib/country.rb"
+# require_relative "../lib/reactor.rb"
 
 def greet
   puts "Welcome to Nuclear Power Reactors Command Line!"
