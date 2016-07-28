@@ -8,13 +8,13 @@ class NPRScraper
 
   #Possibly move all scraping functions to a separate class and leave only call display, list and object creation here?
 
-  def initialize #default country set to US, default reactor to ANO-1 -- maybe remove the defaults?
+  def initialize #default country set to FI, default reactor to LOVIISA-1 -- maybe remove the defaults?
     @home_page = "https://www.iaea.org"
     @pris_home = "#{@home_page}/PRIS/home.aspx"  #page to draw available countries and reactors from together with their codes
     @path_to_country_data = "/PRIS/CountryStatistics/CountryDetails.aspx?current="
     @path_to_reactor_data = "/PRIS/CountryStatistics/ReactorDetails.aspx?current="
-    @country_page = "#{@home_page}#{@path_to_country_data}US"
-    @reactor_page = "#{@home_page}#{@path_to_reactor_data}652"
+    @country_page = "#{@home_page}#{@path_to_country_data}FI"
+    @reactor_page = "#{@home_page}#{@path_to_reactor_data}157"
   end
 
   def scrape_available_countries
@@ -61,9 +61,11 @@ class NPRScraper
     #scrapes the PRIS reactor_page and returns a hash of reactor data
     @reactor_page = "#{@home_page}#{@path_to_reactor_data}#{reactor_id}"
     raw_text = Nokogiri::HTML(open(@reactor_page))
+    country_name = raw_text.css(".sidebar").css("#MainContent_litCaption").text.strip!
     reactor_data = raw_text.css(".box-content").css("span")
-    
+
     reactor = {}
+    reactor[:location] = country_name
     reactor[:status] = raw_text.css("#MainContent_MainContent_lblReactorStatus").text
     #add rest of the data with keys
     reactor_data.each do |data|
