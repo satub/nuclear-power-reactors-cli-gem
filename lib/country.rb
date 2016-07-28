@@ -4,7 +4,7 @@ class Country
   @@all = []
 
   def initialize(country_data) #country_data is a hash that NuclearPowerReactors class will produce by scraping data
-    @reactors = []  #an array of all the reactors in the country
+    # @reactors = []  #an array of all the reactors in the country
     country_data.each do |attribute, value|
       self.send(("#{attribute}="), value)
     end
