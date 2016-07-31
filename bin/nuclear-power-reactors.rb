@@ -28,8 +28,12 @@ greet
 npr = NuclearPowerReactors.new
 npr.list_all_countries
 until cmd == "exit" do
-  if valid_iso_format?(choose_country)
+  country = choose_country
+  if valid_iso_format?(country)
     puts "Yay! You succesfully chose a country!"
+    npr.create_country(country)
+    npr.list_country_data(country)
+    
   else
     puts "Pay attention, chap!"
   end
