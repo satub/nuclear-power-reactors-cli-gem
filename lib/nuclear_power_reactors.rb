@@ -46,6 +46,23 @@ class NuclearPowerReactors
   def list_all_reactors
   end
 
+  def status_color(status)
+    color = :black
+    case status
+    when "Operational"
+      color = :green
+    when "Under Construction"
+      color = :cyan
+    when "Permanent Shutdown"
+      color = :red
+    when "Long-term Shutdown"
+      color = :yellow
+    else
+      color = :black
+    end
+    color
+  end
+
   def find_country(country_iso)
     Country.all.detect { |country|  country.iso == country_iso }
   end
@@ -109,20 +126,7 @@ class NuclearPowerReactors
      puts summary_line_1
      puts summary_line_2
      country.reactors.each_with_index do |reactor, i|
-       color = :black
-       case reactor.status
-        when "Operational"
-         color = :green
-       when "Under Construction"
-         color = :cyan
-       when "Permanent Shutdown"
-         color = :red
-       when "Long-term Shutdown"
-         color = :yellow
-       else
-         color = :black
-       end
-       puts "#{reactor.name}  (#{reactor.id})  #{reactor.status}".colorize(color)
+       puts "#{reactor.name}  (#{reactor.id})  #{reactor.status}".colorize(status_color(reactor.status))
      end
   end
 
@@ -132,7 +136,7 @@ class NuclearPowerReactors
     capacity_unit = "MW"
     reactor = find_reactor(reactor_id)
     #use colorize here for the status display, too?
-    header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}...Status: #{reactor.status}"
+    header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}..." + "Status: #{reactor.status}".colorize(status_color(reactor.status))
     puts header
     if property == "all"
       column_width = reactor.instance_variables.max_by {|name| name.length}.length
@@ -142,7 +146,7 @@ class NuclearPowerReactors
            field << "."
          end
          if !field.match(/Capacity/).nil?
-           puts "#{field} #{reactor.instance_variable_get(variable)} #{capacity_unit}" 
+           puts "#{field} #{reactor.instance_variable_get(variable)} #{capacity_unit}"
          else
            puts "#{field} #{reactor.instance_variable_get(variable)}" if !field.match(/^[A-Z]/).nil?
          end

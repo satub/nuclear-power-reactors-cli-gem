@@ -1,26 +1,17 @@
 # nuclear-power-reactors-cli-gem
 CLI GEM for listing nuclear reactor data from information provided on IAEA.org public resources
-# Nuclear::Power::Reactors::Cli::Gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nuclear/power/reactors/cli/gem`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'nuclear-power-reactors-cli-gem'
+gem "nuclear-power-reactors-cli-gem", :git => "git://github.com/satub/nuclear-power-reactors-cli-gem"
 ```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install nuclear-power-reactors-cli-gem
 
 ## Usage
 
@@ -34,7 +25,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nuclear-power-reactors-cli-gem.
+Bug reports and pull requests are welcome on GitHub at https://github.com/satub/nuclear-power-reactors-cli-gem.
 
 
 ## License
