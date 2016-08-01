@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/nuclear_power_reactors.rb"
-# require_relative "../lib/npr_scraper.rb"
-# require_relative "../lib/country.rb"
-# require_relative "../lib/reactor.rb"
 require 'pry'
 
 def greet
@@ -67,7 +64,7 @@ until cmd == "exit" do
       goodbye
       exit
     end
-    npr.create_country(cmd)
+    npr.find_country(cmd).nil? ? npr.create_country(cmd) : npr.find_country(cmd)
     npr.list_country_data(cmd)
     cmd = "reactor"
   when "reactor"
@@ -76,7 +73,17 @@ until cmd == "exit" do
       goodbye
       exit
     end
-    npr.show_reactor_details(cmd)
+    if npr.find_reactor(cmd).nil? && npr.reactor_exists?(cmd)
+      puts "Reactor #{cmd} not located in this country. Find and display data anyway? (y/n)"
+      if get_input.downcase == "y"
+        npr.create_reactor(cmd)
+        npr.show_reactor_details(cmd)
+      end
+    elsif npr.find_reactor(cmd).nil? && !npr.reactor_exists?(cmd)
+      puts "No reactor with id = #{cmd} exists."
+    else
+      npr.show_reactor_details(cmd)
+    end
     cmd = list_options
   when "list"
     npr.list_all_countries

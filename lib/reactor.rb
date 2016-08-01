@@ -14,10 +14,6 @@ class Reactor
     @@all << self
   end
 
-  #dummy menthod for now
-  def assign_country(country)
-  end
-
   def self.all
     @@all
   end

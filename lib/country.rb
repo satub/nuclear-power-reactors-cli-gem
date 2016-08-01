@@ -13,11 +13,6 @@ class Country
     @@all << self
   end
 
-  #Not used atm
-  def add_reactor(reactor)
-    @reactors << reactor
-  end
-
   def reactors
     @reactors
   end

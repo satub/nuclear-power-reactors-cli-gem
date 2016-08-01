@@ -54,6 +54,10 @@ class NuclearPowerReactors
     Reactor.all.detect {|reactor| reactor.id == reactor_id}
   end
 
+  def reactor_exists?(reactor_id)
+    @reactor_hash.has_key?(reactor_id)
+  end
+
   def create_country(country_iso)  #input is country iso code
     country_data = @npr.scrape_country_data(country_iso)
     country_data[:name] = @country_hash[country_iso]
@@ -81,7 +85,7 @@ class NuclearPowerReactors
     reactor_data = @npr.scrape_reactor_data(reactor_id)
     reactor_data[:name] = @reactor_hash[reactor_id]
     reactor_data[:id] = reactor_id
-    reactor = Reactor.new(reactor_data)
+    find_reactor(reactor_id).nil? ? reactor = Reactor.new(reactor_data) : find_reactor(reactor_id)
   end
 
 
