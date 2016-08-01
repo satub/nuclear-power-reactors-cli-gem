@@ -46,6 +46,14 @@ class NuclearPowerReactors
   def list_all_reactors
   end
 
+  def find_country(country_iso)
+    Country.all.detect { |country|  country.iso == country_iso }
+  end
+
+  def find_reactor(reactor_id)
+    Reactor.all.detect {|reactor| reactor.id == reactor_id}
+  end
+
   def create_country(country_iso)  #input is country iso code
     country_data = @npr.scrape_country_data(country_iso)
     country_data[:name] = @country_hash[country_iso]
@@ -78,7 +86,7 @@ class NuclearPowerReactors
 
 
   def list_country_data(country_iso)
-     country = Country.all.detect { |country|  country.iso == country_iso }
+     country = find_country(country_iso)
      header = "Country: #{country.name}".colorize(:blue)
      summary_line_2 = "Total Electricity Production: #{country.total_electricity}...Nuclear Electricity Production: #{country.nuclear_electricity}...Nuclear Electricity Share: #{country.nuclear_e_share}"
      summary_line_1 = "Reactors: Operational: #{country.operational}".colorize(:green) + "...Under Construction: #{country.under_construction}".colorize(:cyan) + "...In Long-term Shutdown: #{country.long_term}".colorize(:yellow) + "...In Permanent Shutdown: #{country.permanent_shutdown}".colorize(:red)
@@ -106,7 +114,7 @@ class NuclearPowerReactors
 
   #attribute 'property' reserved for later implementations to query only after 1 specific property
   def show_reactor_details(reactor_id, property = "all")
-    reactor = Reactor.all.detect {|reactor| reactor.id == reactor_id}
+    reactor = find_reactor(reactor_id)
     #use colorize here?
     header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}...Status: #{reactor.status}"
     puts header
@@ -123,14 +131,15 @@ class NuclearPowerReactors
     end
   end
 
-
 end
 
 #Test this!
-# reactors = NuclearPowerReactors.new
+ # reactors = NuclearPowerReactors.new
 #reactors.list_all_countries
-# country = reactors.create_country("FI")
+ # country = reactors.create_country("FI")
 # binding.pry
+# reactors.find_country("FI")
+# reactors.find_country("DE")
 # reactors.list_country_data("FI")
 # reactors.show_reactor_details("157")
 # binding.pry
