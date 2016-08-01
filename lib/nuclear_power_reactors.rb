@@ -74,10 +74,17 @@ class NuclearPowerReactors
     reactor_ids = country_data[:reactors].collect do |reactor_name|
       reactor_id = @reactor_hash.key(reactor_name)
     end
+    number_of_reactors = country_data[:reactors].size
+    puts "#{@country_hash[country_iso]}".colorize(:blue) + " has #{number_of_reactors} reactors. Gathering data..."
     #empty country_data[:reactors] array from strings
     country_data[:reactors].clear
     #create and shovel in reactors
+    counter = 0
     country_data[:reactors] = reactor_ids.collect do |id|
+      counter += 1
+      if counter % 20 == 0
+        print "#{counter} reactors read. #{number_of_reactors - counter} reactors to go. Please wait... "
+      end
       reactor = create_reactor(id)
     end
     country = Country.new(country_data)
