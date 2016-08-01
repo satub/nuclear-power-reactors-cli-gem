@@ -16,7 +16,7 @@ class NuclearPowerReactors
   end
 
 
-  #some country names are given with a comma, eg 'Korea, Republic of'. This helper method formats them
+  #Some country names are given in a comma-infested form, eg 'Korea, Republic of'. This helper method reformats them.
   def format_name(name)
     name.match(/\,/).nil? ? name : "#{name.split(", ").reverse.join(" ")}"
   end
@@ -130,7 +130,7 @@ class NuclearPowerReactors
   #attribute 'property' reserved for later implementations to query only after 1 specific property
   def show_reactor_details(reactor_id, property = "all")
     reactor = find_reactor(reactor_id)
-    #use colorize here?
+    #use colorize here for the status display, too?
     header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}...Status: #{reactor.status}"
     puts header
     if property == "all"
