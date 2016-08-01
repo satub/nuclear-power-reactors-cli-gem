@@ -30,12 +30,12 @@ class NuclearPowerReactors
     @country_hash.each do |key, value|
         name = "(#{key}) #{format_name(value)}"
       if organizer % columns == 0
-        puts "#{name}"
+        puts "#{name}".colorize(:blue)
       else
         (column_width - name.length).times do
           name << " "
         end
-        print "#{name}"
+        print "#{name}".colorize(:blue)
       end
       organizer += 1
     end
@@ -48,6 +48,10 @@ class NuclearPowerReactors
 
   def find_country(country_iso)
     Country.all.detect { |country|  country.iso == country_iso }
+  end
+
+  def country_exists?(country_iso)
+    @country_hash.has_key?(country_iso)
   end
 
   def find_reactor(reactor_id)

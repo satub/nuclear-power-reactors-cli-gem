@@ -64,9 +64,14 @@ until cmd == "exit" do
       goodbye
       exit
     end
-    npr.find_country(cmd).nil? ? npr.create_country(cmd) : npr.find_country(cmd)
-    npr.list_country_data(cmd)
-    cmd = "reactor"
+    if npr.country_exists?(cmd)
+      npr.find_country(cmd).nil? ? npr.create_country(cmd) : npr.find_country(cmd)
+      npr.list_country_data(cmd)
+      cmd = "reactor"
+    else
+      puts "No country with code = #{cmd} exists."
+      cmd = "list"
+    end
   when "reactor"
     cmd = choose_reactor
     if cmd == "exit"
@@ -87,7 +92,7 @@ until cmd == "exit" do
     cmd = list_options
   when "list"
     npr.list_all_countries
-    cmd = get_input.downcase
+    cmd = "country"
   when "exit"
     exit
   else
