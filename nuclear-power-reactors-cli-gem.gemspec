@@ -5,7 +5,7 @@ require 'version'
 
 Gem::Specification.new do |spec|
   spec.name          = "nuclear-power-reactors-cli-gem"
-  spec.version       = VERSION
+  spec.version       = Nuclear_Power_Reactors_CLI_GEM::VERSION
   spec.authors       = ["Satu Barnhill"]
   spec.email         = ["satu.barnhill@gmail.com"]
 
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
-  spec.executables   = ["nuclear-power-reactors"]
+  spec.executables   = []
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.12"
