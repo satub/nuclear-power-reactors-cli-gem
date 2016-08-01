@@ -60,7 +60,7 @@ class NPRCLI
       case cmd
       when "country"
         cmd = choose_country
-        if cmd == "exit"
+        if cmd == "EXIT"
           goodbye
           exit
         end

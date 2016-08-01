@@ -15,7 +15,12 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+After installation, type this on your command line to run the program:
+
+    $ nuclear-power-reactors
+
+The program will print a welcome message and list all the countries where nuclear power reactor data is available at https://www.iaea.org/PRIS/ . Follow the prompts to display data in the country of your choice or to display reactor details.
+
 
 ## Development
 
