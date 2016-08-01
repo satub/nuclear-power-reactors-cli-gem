@@ -71,15 +71,15 @@ class NPRScraper
     raw_text = Nokogiri::HTML(open(@reactor_page))
     country_name = raw_text.css(".sidebar").css("#MainContent_litCaption").text.strip!
     reactor_data = raw_text.css(".box-content").css("span")
-    binding.pry
+
     reactor = {}
     reactor[:location] = country_name
     reactor[:status] = raw_text.css("#MainContent_MainContent_lblReactorStatus").text
     #add rest of the data with keys
     reactor_data.each do |data|
-      reactor[data.values[0].match(/MainContent_MainContent_lbl(\w*)/).captures[0].to_sym] = data.text
+      reactor[data.values[0].match(/MainContent_MainContent_lbl(\w*)/).captures[0].to_sym] = data.text.strip
     end
-     reactor
+    reactor
   end
 
 end

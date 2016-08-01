@@ -129,19 +129,23 @@ class NuclearPowerReactors
 
   #attribute 'property' reserved for later implementations to query only after 1 specific property
   def show_reactor_details(reactor_id, property = "all")
+    capacity_unit = "MW"
     reactor = find_reactor(reactor_id)
     #use colorize here for the status display, too?
     header = "Country: #{reactor.location}".colorize(:blue) + "...Reactor: #{reactor.name}...Status: #{reactor.status}"
     puts header
     if property == "all"
       column_width = reactor.instance_variables.max_by {|name| name.length}.length
-
       data = reactor.instance_variables.each do |variable|
          field = "#{(variable.to_s).gsub(/@/,"")}"
          (column_width - field.length).times do
            field << "."
          end
-         puts "#{field} #{reactor.instance_variable_get(variable)}" if !field.match(/^[A-Z]/).nil?
+         if !field.match(/Capacity/).nil?
+           puts "#{field} #{reactor.instance_variable_get(variable)} #{capacity_unit}" 
+         else
+           puts "#{field} #{reactor.instance_variable_get(variable)}" if !field.match(/^[A-Z]/).nil?
+         end
       end
     end
   end

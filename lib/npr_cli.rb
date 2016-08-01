@@ -25,7 +25,7 @@ class NPRCLI
       puts "For example, enter FI for Finland, or enter exit to quit the program:"
       cmd = gets.chomp
     end
-    cmd
+    cmd.upcase
   end
 
   def choose_reactor
