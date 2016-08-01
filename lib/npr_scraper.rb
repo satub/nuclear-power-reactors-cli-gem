@@ -71,7 +71,7 @@ class NPRScraper
     raw_text = Nokogiri::HTML(open(@reactor_page))
     country_name = raw_text.css(".sidebar").css("#MainContent_litCaption").text.strip!
     reactor_data = raw_text.css(".box-content").css("span")
-
+    binding.pry
     reactor = {}
     reactor[:location] = country_name
     reactor[:status] = raw_text.css("#MainContent_MainContent_lblReactorStatus").text
