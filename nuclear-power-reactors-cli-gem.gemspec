@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["satu.barnhill@gmail.com"]
 
   spec.summary       = %q{CLI GEM for listing nuclear reactor data from information provided on IAEA.org public resources.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/satub/nuclear-power-reactors-cli-gem"
   spec.license       = "MIT"
 
@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = []
+  spec.bindir        = "bin"
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| f[3..-1] }
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.12"
