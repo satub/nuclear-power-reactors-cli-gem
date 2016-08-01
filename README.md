@@ -6,12 +6,16 @@ CLI GEM for listing nuclear reactor data from information provided on IAEA.org p
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "nuclear-power-reactors-cli-gem", :git => "git://github.com/satub/nuclear-power-reactors-cli-gem"
+gem "nuclear-power-reactors-cli-gem"
 ```
 
 And then execute:
 
     $ bundle
+
+Or install from command line
+
+    $ gem install nuclear-power-reactors-cli-gem
 
 ## Usage
 
