@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "nuclear-power-reactors-cli-gem"
-  spec.version       = Nuclear_Power_Reactors_CLI_GEM::VERSION
+  spec.name          = "nuclear-power-reactors"
+  spec.version       = Nuclear_Power_Reactors::VERSION
   spec.authors       = ["Satu Barnhill"]
   spec.email         = ["satu.barnhill@gmail.com"]
 
@@ -24,8 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| f[3..-1] }
-  spec.require_paths = ["lib"]
+  spec.executables   << 'nuclear-power-reactors'
+  spec.require_paths = ["lib/nuclear_power_reactors"]
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"

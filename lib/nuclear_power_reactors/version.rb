@@ -1,3 +1,3 @@
-module Nuclear_Power_Reactors_CLI_GEM
+module Nuclear_Power_Reactors
   VERSION = "0.1.3"
 end
