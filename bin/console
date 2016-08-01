@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "nuclear_power_reactors"
+require "../lib"
 # require_relative "../lib/nuclear_power_reactors.rb"
 
 # You can add fixtures and/or initialization code here to make experimenting
