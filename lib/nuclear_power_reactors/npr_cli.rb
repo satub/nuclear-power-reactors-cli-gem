@@ -1,4 +1,4 @@
-require_relative '../lib/nuclear_power_reactors.rb'
+require_relative 'nuclear_power_reactors.rb'
 require 'pry'
 
 class NPRCLI

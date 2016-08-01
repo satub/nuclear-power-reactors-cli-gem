@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/npr_cli.rb'
+require_relative '../lib/nuclear_power_reactors_npr_cli.rb'
 
 NPRCLI.new.run

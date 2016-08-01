@@ -1,6 +1,6 @@
-require_relative "../lib/npr_scraper.rb"
-require_relative "../lib/country.rb"
-require_relative "../lib/reactor.rb"
+require_relative "npr_scraper.rb"
+require_relative "country.rb"
+require_relative "reactor.rb"
 require 'colorize'
 require 'pry'
 
